@@ -1,6 +1,7 @@
 package br.com.amanda.cm.modelo;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 public class Campo {
 	private final int linha;
@@ -36,5 +37,39 @@ public class Campo {
 		}else {
 			return false;
 		}
+	}
+	
+	void alternarMarcador() {
+		if(!aberto) {
+			marcado = !marcado;
+		}
+	}
+	
+	boolean abrir() {
+		if(!aberto && !marcado) {
+			aberto = true;
+			
+			if(minado) {
+				throw new ExplosaoException();
+			}
+			if(vizinhancaSegura()) {
+				vizinhos.forEach(v -> v.abrir());
+			}
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	boolean vizinhancaSegura() {
+		return vizinhos.stream().noneMatch(v -> v.minado);
+	}
+	
+	void minar() {
+			minado = true;
+	}
+	
+	public boolean isMarcado() {
+		return marcado;
 	}
 }

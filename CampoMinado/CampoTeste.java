@@ -1,5 +1,6 @@
 package br.com.amanda.cm.modelo;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -46,6 +47,22 @@ public class CampoTeste {
 		Campo vizinho = new Campo(2,2);
 		boolean resultado = campo.adicionarVizinho(vizinho);
 		assertTrue(resultado);
+	}
+	
+	@Test
+	void testeValorPadraoAtributoMarcado() {
+		assertFalse(campo.isMarcado);
+	}
+	@Test
+	void testeAlternarMarcador() {
+		campo.alternarMarcador();		
+		assertTrue(campo.isMarcado);
+	}
+	@Test
+	void testeAlternarMarcadorDuasChamadas() {
+		campo.alternarMarcador();		
+		campo.alternarMarcador();		
+		assertFalse(campo.isMarcado);
 	}
 	
 }
